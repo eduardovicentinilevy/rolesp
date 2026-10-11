@@ -1,0 +1,27 @@
+# Ambiente local: só o PostgreSQL. A API e o front rodam com npm (veja o README).
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: rolesp-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD no .env}
+      # lidas pelo script de db/init para criar os papéis do projeto
+      ROLESP_OWNER_PASSWORD: ${ROLESP_OWNER_PASSWORD:?defina ROLESP_OWNER_PASSWORD no .env}
+      ROLESP_APP_PASSWORD: ${ROLESP_APP_PASSWORD:?defina ROLESP_APP_PASSWORD no .env}
+    ports:
+      # 127.0.0.1: o banco fica acessível só nesta máquina, não na rede local
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - dados_postgres:/var/lib/postgresql/data
+      # scripts executados uma única vez, na primeira inicialização do volume
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d rolesp"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  dados_postgres:
