@@ -1,0 +1,47 @@
+{
+  "name": "rolesp-api",
+  "version": "1.0.0",
+  "description": "API REST do Rolê SP: guia de São Paulo com lugares bairristas",
+  "private": true,
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=22.9"
+  },
+  "scripts": {
+    "dev": "node --watch --env-file-if-exists=.env src/server.js",
+    "start": "node src/server.js",
+    "db:migrar": "node --env-file-if-exists=.env scripts/migrar.js",
+    "db:seed": "node --env-file-if-exists=.env scripts/semear.js",
+    "db:resetar": "node --env-file-if-exists=.env scripts/resetar-banco.js",
+    "admin:criar": "node --env-file-if-exists=.env scripts/criar-admin.js",
+    "test": "node --experimental-vm-modules --env-file-if-exists=.env.test node_modules/jest/bin/jest.js --runInBand",
+    "test:cobertura": "npm test -- --coverage",
+    "lint": "eslint .",
+    "formatar": "prettier --write .",
+    "formatar:checar": "prettier --check ."
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.23.1",
+    "pino": "^10.4.0",
+    "pino-http": "^11.0.0",
+    "xss": "^1.0.15",
+    "zod": "^4.6.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0",
+    "jest": "^30.5.2",
+    "pino-pretty": "^13.2.0",
+    "prettier": "^3.9.10",
+    "supertest": "^7.3.1"
+  }
+}
