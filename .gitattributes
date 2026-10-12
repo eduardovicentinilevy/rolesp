@@ -1,0 +1,8 @@
+# O checksum das migrations é calculado sobre o conteúdo do arquivo.
+# Forçar LF evita que o Git no Windows (core.autocrlf) troque as quebras de linha
+# e faça uma migration intocada parecer "editada".
+*.sql text eol=lf
+*.js  text eol=lf
+*.md  text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
