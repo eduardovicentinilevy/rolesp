@@ -3,6 +3,19 @@
 > Fase 1 do projeto: plano de arquitetura, modelo de dados e decisões técnicas, cada uma com o seu porquê.
 > Este documento é a base do README final. As decisões marcadas com **[validar]** mudam algo do briefing original e esperam aprovação.
 
+> **Atualização (fase 2).** A especificação completa do projeto decidiu vários pontos marcados como **[validar]**. Valem estas decisões, e não as do plano original:
+>
+> - horário em `lugares.horario_funcionamento` (jsonb validado por CHECK), e não na tabela `lugar_horarios`;
+> - observação das paradas em `roteiro_lugares.observacao` (`rotulo_i18n`, jsonb), e não na tabela `roteiro_lugar_traducoes`;
+> - categorias `ponto-turistico`, `restaurante`, `bar`, `balada`, `sorveteria` e `padaria-cafe` (feiras entram como ponto turístico bairrista);
+> - JSON da API em **camelCase**, com a conversão no repository, e não em snake_case;
+> - backend em **CommonJS**, e não ESM;
+> - PostgreSQL 16 na imagem Debian (collation ICU `pt_br`);
+> - busca com as configurações `*_sem_acento` e a função `fn_tsquery_busca` (inclui prefixo e exclusão);
+> - no ambiente local há um usuário de banco só; o papel separado, apenas com DML, para a API volta na fase 7 (Cloud SQL).
+>
+> O modelo de dados atual, com o diagrama ER, está em [`db/README.md`](../db/README.md). As seções 2, 3.4 e 8 abaixo ainda descrevem o plano original e serão revisadas no README final (fase 7).
+
 ## Sumário
 
 1. [Visão geral](#1-visão-geral)
